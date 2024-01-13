@@ -24,8 +24,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/users/', include('apps.users.urls')),
-    
+    path('api/transactions/', include('apps.transactions.urls')),
+    # path('api/coins/', include('apps.coins.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
