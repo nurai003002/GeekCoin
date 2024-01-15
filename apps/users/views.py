@@ -1,26 +1,34 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.viewsets import GenericViewSet
+from rest_framework import mixins
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
-from apps.users.models import Users
-from apps.users.serializers import UsersSerializers
-# Create your views here.
+from apps.users.models import User
+from apps.users.serializers import UserDetailSerializer, UserRegisterSerializer, UserSerializer
+from apps.users.permissions import UserPermissons
 
-class UsersAPI(ListAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializers
+class UserAPIViewsSet(GenericViewSet,
+                      mixins.ListModelMixin,
+                      mixins.CreateModelMixin,
+                      mixins.RetrieveModelMixin,
+                      mixins.UpdateModelMixin,
+                      mixins.DestroyModelMixin):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = IsAuthenticated
 
-class UsersAPICreate(CreateAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializers
-
-class UsersAPIRetrieve(RetrieveAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializers
-
-class UsersAPIUpdate(UpdateAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializers
-
-
-class UsersAPIDestroy(DestroyAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializers
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return UserRegisterSerializer
+        if self.action == 'retrieve':
+            return UserDetailSerializer
+        return UserSerializer
+    
+    def get_permissions(self):
+        if self.action in ('update', 'partial_update', 'destroy'):
+            return (UserPermissons(),)
+        return (AllowAny(), )
+    
+    def perform_update(self, serializer):
+        return serializer.save(user = self.request.user)
+    
+    
