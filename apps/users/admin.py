@@ -5,5 +5,5 @@ from apps.users.models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'phone', 'age', 'direction')
-    list_filter = ('username', 'phone', 'age', 'direction')
+    list_display = ('username', 'phone', 'age', 'direction', 'balance', 'wallet_address')
+    list_filter = ('username', 'phone', 'age', 'direction', 'balance', 'wallet_address')

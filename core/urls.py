@@ -21,7 +21,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 api_urlpatterns = [
-    path('users/', include('apps.users.urls'))
+    path('users/', include('apps.users.urls')),
+    path('transactions/', include('apps.transactions.urls')),
 ]
 
 urlpatterns = [

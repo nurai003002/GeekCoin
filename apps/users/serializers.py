@@ -5,7 +5,7 @@ from apps.users.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'phone', 'age', 'directon')
+        fields = ('id', 'username', 'phone', 'age', 'directon', 'balance', 'wallet_address')
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
@@ -17,7 +17,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'phone', 'age', 'directon', 'password', 'password2')
+        fields = ('username', 'phone', 'age', 'directon', 'password', 'password2', 'balance', 'wallet_address')
 
 def validate(self, attrs):
     if attrs['password'] != attrs['passwords2']:
@@ -42,5 +42,5 @@ def create(self, validate_data):
 class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'phone', 'age', 'directon', 'password', 'password2')
+        fields = ('username', 'phone', 'age', 'directon', 'password', 'password2', 'balance', 'wallet_address')
 

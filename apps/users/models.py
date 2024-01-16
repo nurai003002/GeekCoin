@@ -16,6 +16,17 @@ class User(AbstractUser):
         max_length = 255,
         verbose_name = 'Напрваление'
     )
+    balance = models.IntegerField(
+        verbose_name = 'Баланс',
+        default = 4,
+        blank = True, null=True
+    )
+    wallet_address = models.CharField(
+        max_length = 16,
+        verbose_name = 'Кошелк',
+        blank = True, null=True,
+        unique = True
+    )
 
     def __str__(self):
         return self.username
