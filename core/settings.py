@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # rest
     'rest_framework',
+    'drf_yasg',
     
     # apps
     'apps.users',
