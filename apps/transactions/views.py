@@ -28,11 +28,11 @@ class TransactionsAPIViews(GenericViewSet,
         to_user_id = request.data.get('to_user')
         amount = request.data.get('amount')
         try:
-            from_user = User.objects.get(id=from_user_id)
-            to_user = User.objects.get(id=to_user_id)
+            from_user = User.objects.get(username=str(from_user_id))
+            to_user = User.objects.get(username=str(to_user_id))
             if float(amount) > float(from_user.balance):
                 return Response({'detail' : 'Недотаточно средств для перевода'}, status=status.HTTP_400_BAD_REQUEST)
-            from_user_balance = float(from_user.balance) - float(amount)
+            from_user.balance = float(from_user.balance) - float(amount)
             to_user.balance = float(to_user.balance) + float(amount)
             from_user.save()
             to_user.save()

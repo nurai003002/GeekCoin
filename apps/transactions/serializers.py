@@ -2,9 +2,10 @@ from rest_framework import serializers
 from apps.transactions.models import Transactions
 
 class TransactionSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Transactions
-        fields = '__all__'
+        fields = ('id', 'from_user', 'to_user', 'is_complated', 'create_at', 'amount')
 
     def create(self, validated_data):
         # Extract 'user' from validated_data

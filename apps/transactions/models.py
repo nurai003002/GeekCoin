@@ -9,7 +9,7 @@ class Transactions(models.Model):
     related_name = 'from_user',
     verbose_name = 'От пользователя'
     )
-    to_user = models.ForeignKey(User, 
+    to_user = models.ForeignKey(User,            
     on_delete=models.CASCADE,
     related_name = 'to_user',
     verbose_name = 'К пользователя'
