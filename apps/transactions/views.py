@@ -40,7 +40,7 @@ class TransactionsAPIViews(GenericViewSet,
             serializer = TransactionSerializer(transfer)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except User.DoesNotExist:
-            return Response({'detail': 'Пользователь не найден'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': 'Пользов атель не найден'}, status=status.HTTP_400_BAD_REQUEST)
         except ValueError:
             return Response({'detail':'Неверный формат суммы перевода'}, status=status.HTTP_400_BAD_REQUEST)
         
